@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: API BrasilPrev Challenge
+  description: >-
+    # Introdução
+
+    This API provides a simple registration of customers, with the creation, reading, updating and deleting operations. This project was developed as part of the Java challenge, for BrasilPrev / Ília Culture.
+
+  contact:
+    email: weslley_wenny@hotmail.com
+
+tags:
+  - name: Customers
+    description: CRUD operations for a customer registration system.
+x-tagGroups:
+  - name: CUSTOMERS
+    tags:
+      - Customers
+security:
+
+paths:
+  /customers:
+    post:
+      tags:
+        - Customers
+      summary: Create
+      parameters:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerDTO"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+    get:
+      tags:
+        - Customers
+      summary: Get all
+      parameters:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerDTO"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+  /customers/{id}:
+    get:
+      tags:
+        - Customers
+      summary: Get by Id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: "Numeric ID of the customer"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerDTO"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        "404":
+          description: "Not Found"
+    put:
+      tags:
+        - Customers
+      summary: Update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: "Numeric ID of the customer"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerDTO"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        "404":
+          description: "Not Found"
+    delete:
+      tags:
+        - Customers
+      summary: Delete
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: "Numeric ID of the customer"
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        "404":
+          description: "Not Found"
+servers:
+  - url: localhost:8080
+components:
+  schemas:
+    CustomerDTO:
+      title: Customer
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        cpf:
+          type: string
+        address:
+          type: object
+          items:
+            $ref: "#/components/schemas/AddressDTO"
+      example:
+        id: 1
+        name: "Weslley Aguiar"
+        cpf: "429476362322"
+        address:
+          $ref: "#/components/schemas/AddressDTO"
+    AddressDTO:
+      title: Address
+      type: object
+      properties:
+        id:
+          type: integer
+        description:
+          type: string
+        number:
+          type: string
+        district:
+          type: string
+        zipCode:
+          type: string
+      example:
+        id: 1
+        description: "Avenida Paulista"
+        number: "1578"
+        district: "Bela Vista"
+        zipCode: "01310-200"
