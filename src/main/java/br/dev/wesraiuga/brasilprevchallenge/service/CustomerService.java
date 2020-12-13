@@ -51,4 +51,8 @@ public class CustomerService {
 		return customerRepository.save(customer);
 	}
 
+	public Long count() {
+		return customerRepository.count();
+	}
+
 }

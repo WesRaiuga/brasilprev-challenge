@@ -24,8 +24,10 @@ import br.dev.wesraiuga.brasilprevchallenge.entity.Customer;
 import br.dev.wesraiuga.brasilprevchallenge.service.CustomerService;
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping(CustomerController.URL_PATH)
 public class CustomerController {
+	
+	public static final String URL_PATH = "/customers";
 	
 	@Autowired
 	private CustomerService customerService;
@@ -51,6 +53,12 @@ public class CustomerController {
 		Customer customer = customerService.findById(id);
 		
 		return toCustomerDTO(customer);
+	}
+	
+	@GetMapping("/count")
+	@ResponseStatus(value = HttpStatus.OK)
+	public Long count() {
+		return customerService.count();
 	}
 	
 	@DeleteMapping("/{id}")
