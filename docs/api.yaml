@@ -17,7 +17,6 @@ x-tagGroups:
   - name: CUSTOMERS
     tags:
       - Customers
-security:
 
 paths:
   /customers:
@@ -25,7 +24,6 @@ paths:
       tags:
         - Customers
       summary: Create
-      parameters:
       requestBody:
         content:
           application/json:
@@ -42,12 +40,6 @@ paths:
       tags:
         - Customers
       summary: Get all
-      parameters:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CustomerDTO"
       responses:
         "200":
           description: "Success"
@@ -67,11 +59,6 @@ paths:
             type: integer
           required: true
           description: "Numeric ID of the customer"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CustomerDTO"
       responses:
         "200":
           description: "Success"
@@ -120,10 +107,6 @@ paths:
       responses:
         "200":
           description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CustomerDTO"
         "404":
           description: "Not Found"
 servers:
