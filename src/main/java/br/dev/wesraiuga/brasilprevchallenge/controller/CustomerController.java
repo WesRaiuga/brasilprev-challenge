@@ -7,14 +7,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.dev.wesraiuga.brasilprevchallenge.controller.dto.CustomerDTO;
+import br.dev.wesraiuga.brasilprevchallenge.controller.dto.CustomerUpdateDTO;
 import br.dev.wesraiuga.brasilprevchallenge.entity.Customer;
 import br.dev.wesraiuga.brasilprevchallenge.service.CustomerService;
 
@@ -38,6 +43,31 @@ public class CustomerController {
 		List<Customer> customers = customerService.getAll();
 		
 		return customers.stream().map(CustomerDTO::toCustomerDTO).collect(Collectors.toList());
+	}
+	
+	@GetMapping("/{id}")
+	@ResponseStatus(value = HttpStatus.OK)
+	public CustomerDTO findById(@PathVariable Long id) {
+		Customer customer = customerService.findById(id);
+		
+		return toCustomerDTO(customer);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void delete(@PathVariable Long id) {
+		Customer customer = customerService.findById(id);
+		
+		customerService.delete(customer);
+	}
+	
+	@PutMapping("/{id}")
+	public CustomerDTO update(@PathVariable Long id,
+								@RequestBody CustomerUpdateDTO customerUpdateDTO) {
+		
+		Customer updatedCustomer = customerService.update(id, customerUpdateDTO);
+		
+		return toCustomerDTO(updatedCustomer);
 	}
 
 }

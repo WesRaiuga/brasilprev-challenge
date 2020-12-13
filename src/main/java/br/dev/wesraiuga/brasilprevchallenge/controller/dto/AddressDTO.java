@@ -1,7 +1,6 @@
 package br.dev.wesraiuga.brasilprevchallenge.controller.dto;
 
 import br.dev.wesraiuga.brasilprevchallenge.entity.Address;
-import br.dev.wesraiuga.brasilprevchallenge.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
